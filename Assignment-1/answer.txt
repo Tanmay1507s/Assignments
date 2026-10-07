@@ -1,0 +1,8 @@
+Using fs.readFileSync() blocks Node.js's single-threaded event loop, completely halting execution for all concurrent user requests until the large file finishes reading. Because Node.js handles requests on a single main thread, any synchronous file I/O forces other incoming network events to wait in queue, causing massive latency and server unresponsiveness.
+
+Why fs.readFileSync() Causes Problems
+
+• Blocks the main thread: Node.js uses a single thread for JavaScript execution.
+• Stops concurrent requests: No other code can execute during the read operation.
+• Wastes server resources: The CPU sits idle waiting for disk I/O to complete.
+• Degrades performance: Response times spike drastically for every connected user.
